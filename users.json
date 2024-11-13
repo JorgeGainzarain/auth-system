@@ -13,5 +13,15 @@
     "username": "username3",
     "fullName": "Full Name 3",
     "password": "password3"
+  },
+  {
+    "username": "jorgegainza",
+    "fullName": "Jorge Gainzarain",
+    "password": "password1"
+  },
+  {
+    "username": "testuser",
+    "fullName": "Test Name",
+    "password": "testpass"
   }
 ]

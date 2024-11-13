@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const jsonFile = './data/users.json';
+const jsonFile = './users.json';
 
 export default class UserRepository extends Array {
 
@@ -33,5 +33,22 @@ export default class UserRepository extends Array {
 
     get(username) {
         return this.find(u => u.username === username);
+    }
+
+    add(username, fullName, password) {
+        console.log(`Registering user ${username}, ${fullName}, ${password}...`);
+        if (!this.get(username)) {
+            this.push({username, fullName, password});
+            this.saveUsers();
+            return true;
+        } else return false;
+    }
+
+    saveUsers() {
+        try {
+            fs.writeFileSync(jsonFile, JSON.stringify(this, null, 2));
+        } catch (error) {
+            console.error('Error saving users:', error);
+        }
     }
 }

@@ -8,4 +8,8 @@ export default class AuthService {
         return user !== undefined && user.password === password;
     }
 
+    static register(username, fullName, password) {
+        return this.users.add(username, fullName, password);
+    }
+
 }

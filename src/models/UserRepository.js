@@ -23,12 +23,10 @@ export default class UserRepository extends Array {
     }
 
     watchFile() {
-        fs.watch(jsonFile, (eventType, filename) => {
-            if (eventType === 'change') {
-                console.log(`File ${filename} has been changed. Reloading users...`);
-                this.loadUsers();
-            }
-        });
+        let watcher = fs.watch(jsonFile)
+        watcher.on('change', () => {
+            this.loadUsers();
+        })
     }
 
     get(username) {
@@ -36,7 +34,6 @@ export default class UserRepository extends Array {
     }
 
     add(username, fullName, password) {
-        console.log(`Registering user ${username}, ${fullName}, ${password}...`);
         if (!this.get(username)) {
             this.push({username, fullName, password});
             this.saveUsers();

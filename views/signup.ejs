@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>signup</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,10 +69,10 @@
     </style>
     <script>
         function validateForm() {
-            const fullName = document.forms["registerForm"]["fullName"].value;
-            const username = document.forms["registerForm"]["username"].value;
-            const password = document.forms["registerForm"]["password"].value;
-            const confirmPassword = document.forms["registerForm"]["confirmPassword"].value;
+            const fullName = document.forms["signupForm"]["fullName"].value;
+            const username = document.forms["signupForm"]["username"].value;
+            const password = document.forms["signupForm"]["password"].value;
+            const confirmPassword = document.forms["signupForm"]["confirmPassword"].value;
             if (!fullName || !username || !password || !confirmPassword) {
                 alert("All fields must be filled out");
                 return false;
@@ -86,9 +86,9 @@
     </script>
 </head>
 <body>
-    <form name="registerForm" action="/register" method="POST" onsubmit="return validateForm()">
+    <form name="signupForm" action="/signup" method="POST" onsubmit="return validateForm()">
         <div class="header">
-            <h2>Register</h2>
+            <h2>signup</h2>
         </div>
         <% if (locals.error) { %>
             <div class="error-message"><%= error %></div>
@@ -99,7 +99,7 @@
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
         </label>
-        <button type="submit">Register</button>
+        <button type="submit">signup</button>
         <div class="login-link">
             <p>Already have an account? <br> <a href="/login">Login here</a></p>
         </div>

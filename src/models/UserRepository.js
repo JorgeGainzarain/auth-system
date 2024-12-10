@@ -1,51 +1,30 @@
-import fs from 'fs';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-const jsonFile = './users.json';
+dotenv.config();
 
-export default class UserRepository extends Array {
-
+export default class UserRepository {
     constructor() {
-        super();
-        this.loadUsers();
-        this.watchFile();
+        this.connection = mysql.createPool({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME
+        });
     }
 
-    loadUsers() {
-        try {
-            const raw_data = fs.readFileSync(jsonFile);
-            const users = new Set(JSON.parse(raw_data.toString()));
-            this.length = 0;
-            this.push(...users);
-        } catch (error) {
-            console.error('Error loading users:', error);
-            this.length = 0;
-        }
+    async get(username) {
+        const [rows] = await this.connection.execute('SELECT * FROM users WHERE username = ?', [username]);
+        return rows[0];
     }
 
-    watchFile() {
-        let watcher = fs.watch(jsonFile)
-        watcher.on('change', () => {
-            this.loadUsers();
-        })
-    }
-
-    get(username) {
-        return this.find(u => u.username === username);
-    }
-
-    add(username, fullName, password) {
-        if (!this.get(username)) {
-            this.push({username, fullName, password});
-            this.saveUsers();
+    async add(username, fullName, password) {
+        const user = await this.get(username);
+        if (!user) {
+            await this.connection.execute('INSERT INTO users (username, fullName, password) VALUES (?, ?, ?)', [username, fullName, password]);
             return true;
-        } else return false;
-    }
-
-    saveUsers() {
-        try {
-            fs.writeFileSync(jsonFile, JSON.stringify(this, null, 2));
-        } catch (error) {
-            console.error('Error saving users:', error);
+        } else {
+            return false;
         }
     }
 }

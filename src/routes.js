@@ -3,22 +3,26 @@ import AuthService from "./models/AuthService.js";
 
 const router = express.Router()
 
+router.get('/', (req, res) => {
+    res.redirect('/index');
+});
+
 router.get('/login', (req, res) => {
     res.render('login', { error: req.query.error || null });
 });
 
-router.get('/register', (req, res) => {
-    res.render('register', { error: req.query.error || null });
+router.get('/signup', (req, res) => {
+    res.render('signup', { error: req.query.error || null });
 });
 
-router.post('/register', (req, res) => {
+router.post('/signup', (req, res) => {
     let username = req.body.username;
     let fullName = req.body.fullName;
     let password = req.body.password;
 
-    let registered = AuthService.register(username, fullName, password)
-    if (!registered) {
-        return res.redirect('/register?error=Username already taken');
+    let signed = AuthService.signup(username, fullName, password)
+    if (!signed) {
+        return res.redirect('/signup?error=Username already taken');
     }
 
     res.redirect('/login');

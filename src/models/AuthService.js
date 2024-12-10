@@ -3,13 +3,12 @@ import UserRepository from "./UserRepository.js";
 export default class AuthService {
     static users = new UserRepository();
 
-    static signin(username, password) {
-        const user = this.users.get(username);
+    static async signin(username, password) {
+        const user = await this.users.get(username);
         return user !== undefined && user.password === password;
     }
 
-    static register(username, fullName, password) {
-        return this.users.add(username, fullName, password);
+    static async signup(username, fullName, password) {
+        return await this.users.add(username, fullName, password);
     }
-
 }

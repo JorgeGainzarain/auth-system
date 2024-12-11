@@ -3,92 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 300px;
-            box-sizing: border-box;
-        }
-        input {
-            display: block;
-            margin: 15px 0;
-            padding: 10px;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: #ff0000;
-            margin-bottom: 10px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .login-link {
-            text-align: center;
-            margin-top: 10px;
-            color: #007BFF;
-        }
-        .login-link a {
-            color: #007BFF;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .login-link a:hover {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-    </style>
-    <script>
-        function validateForm() {
-            const fullName = document.forms["signupForm"]["fullName"].value;
-            const username = document.forms["signupForm"]["username"].value;
-            const password = document.forms["signupForm"]["password"].value;
-            const confirmPassword = document.forms["signupForm"]["confirmPassword"].value;
-            if (!fullName || !username || !password || !confirmPassword) {
-                alert("All fields must be filled out");
-                return false;
-            }
-            if (password !== confirmPassword) {
-                alert("Passwords do not match");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <title>Register</title>
+    <link rel="stylesheet" href="/styles/<%= theme %>.css">
+    <script src="https://kit.fontawesome.com/bfe42d90a4.js" crossorigin="anonymous"></script>
+    <script src="/dark-mode.js" defer></script>
 </head>
 <body>
-    <form name="signupForm" action="/signup" method="POST" onsubmit="return validateForm()">
+    <div id="dark-mode-toggle">
+        <button id="dark-mode-toggle-button">
+            <i class="fa fa-moon"></i>
+        </button>
+    </div>
+    <nav>
+    </nav>
+    <form action="/signup" method="POST">
         <div class="header">
-            <h2>signup</h2>
+            <h2>Register</h2>
         </div>
         <% if (locals.error) { %>
             <div class="error-message"><%= error %></div>
@@ -99,7 +29,7 @@
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
         </label>
-        <button type="submit">signup</button>
+        <button type="submit">Register</button>
         <div class="login-link">
             <p>Already have an account? <br> <a href="/login">Login here</a></p>
         </div>

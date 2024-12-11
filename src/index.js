@@ -2,10 +2,21 @@ import express from 'express';
 import authRoutes from './routes.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import initializeDatabase from './database.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express();
 const port = 3000;
+
+app.use(cookieParser());
+
+// Initialize the database
+initializeDatabase().then(() => {
+    console.log('Database initialized');
+}).catch(err => {
+    console.error('Error initializing database:', err);
+});
 
 // Setup Session
 app.use(session({

@@ -11,6 +11,7 @@ const port = 3000;
 
 app.use(cookieParser());
 
+
 // Initialize the database
 initializeDatabase().then(() => {
     console.log('Database initialized');
@@ -38,6 +39,6 @@ app.set('views', './views');
 // Use the auth routes
 app.use('/', authRoutes);
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });

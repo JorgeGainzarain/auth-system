@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    const darkModeEnabled = req.cookies['dark-mode'] === 'enabled';
+    const darkModeEnabled = (req.cookies['dark-mode'] === 'enabled');
     res.render('login', { theme: darkModeEnabled ? 'dark' : 'light' , error: req.query.error || null});
 });
 
